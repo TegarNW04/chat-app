@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chat App</title>
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="script.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #ece5dd;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #message-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      background: #c8f7c5; /* Background diubah menjadi hijau */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #message-container .message {
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+      max-width: 70%;
+      word-wrap: break-word;
+      font-size: 15px;
+      line-height: 1.4;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    #message-container .message.sent {
+      background: #dcf8c6;
+      color: black;
+      align-self: flex-end;
+    }
+
+    #message-container .message.received {
+      background: #ffffff;
+      color: black;
+      align-self: flex-start;
+      border: 1px solid #f0f0f0;
+    }
+
+    #message-container .message::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    #message-container .message.sent::after {
+      border-width: 0 10px 10px 0;
+      border-color: transparent #dcf8c6 transparent transparent;
+      top: 0;
+      right: -10px;
+    }
+
+    #message-container .message.received::after {
+      border-width: 10px 10px 0 0;
+      border-color: #ffffff transparent transparent transparent;
+      top: 0;
+      left: -10px;
+    }
+
+    #send-container {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background: #f0f0f0;
+      border-top: 1px solid #ddd;
+    }
+
+    #message-input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    #send-button {
+      padding: 10px 20px;
+      background: #25d366;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #send-button:hover {
+      background: #20c057;
+    }
+
+    #send-button:active {
+      background: #1aa34a;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div id="message-container">
+    <!-- Messages will appear here dynamically -->
+  </div>
+  <form id="send-container">
+    <input type="text" id="message-input" placeholder="Ketik Pesan Anda...">
+    <button type="submit" id="send-button">➤</button>
+  </form>
+</body>
+</html>
